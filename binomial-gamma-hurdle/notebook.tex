@@ -1,0 +1,865 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{binomial-gamma-hurdle}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Binomial-Gamma Hurdle Models accounting for zero-inflation
+and imperfect
+detection}\label{binomial-gamma-hurdle-models-accounting-for-zero-inflation-and-imperfect-detection}
+
+    \subsubsection{Model description}\label{model-description}
+
+We consider here two common problems in ecological data: zero-inflation
+and imperfect detection. Approach is presented using simulated data,
+that resembles real data such as e.g. species sightings per minute of
+effort.
+
+\subparagraph{Dealing with
+zero-inflation:}\label{dealing-with-zero-inflation}
+
+Dependent variable, y is semi-continuous (i.e. a point mass in a single
+value and a continuous distribution elsewhere). The data generating
+process for this type of data can be modelled using a gamma
+distribution. The main problem is however that response variable has a
+high proportion of zeros (\textgreater{}90\%), which is more than
+expected from a gamma distribution, hence it cannot be readily applied.
+
+There are two common methods for dealing with zero-inflated data:
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
+\item
+  Modelling a zero-inflation parameter that represents the probability a
+  given 0 comes from the main distribution (say the negative binomial
+  distribution) or is an excess 0;
+\item
+  Modelling the zero and non-zero data with one model and then modelling
+  the non-zero data with another. This is often called a hurdle model.
+\end{enumerate}
+
+In (1), the response variable is modelled as a mixture of a Bernoulli
+distribution (a point mass at zero) and a Poisson distribution (or any
+other count distribution supported on non-negative integers). In (2),
+the basic idea is that a Bernoulli probability governs the binary
+outcome of whether a variable has a zero or positive realization. If the
+realization is positive, the hurdle is crossed, and the conditional
+distribution of the positives is governed by a truncated-at-zero model.
+Hurdle models model the zeros and non-zeros as two separate processes
+and can be useful in that they allow you to model the zeros and
+non-zeros with different predictors or different roles of the same
+predictors.
+
+Zero-inflation models may be more elegant and informative if the same
+predictors are thought to contribute to the extra and real zeros. Hurdle
+models can be useful in that they allow you to model the zeros and
+non-zeros with different predictors or different roles of the same
+predictors. Maybe one process leads to the zero/non-zero data and
+another leads to the non-zero magnitude.
+
+Here we shall focus on (2) and model the zeros separately from the
+non-zeros in a binomial-Gamma hurdle model.
+
+\paragraph{Dealing with imprefect
+detection}\label{dealing-with-imprefect-detection}
+
+To isolate the effect of variables that might influence detectability
+and to partition out the annual signals, a mixed-effect modelling
+framework will be separately applied to each part of the hurdle model. A
+varying-intercept model will be fit with the explanatory variables that
+are expected to influence detectability (say x1). For the Bernoulli part
+of the hurdle model the response is a binary variable
+(presence/absence). For the Gamma part the response is the number of
+observations. The factor variable `year' is included as a random effect.
+This approach is particularly useful when variation among years is of
+interest. Random effects are conditional modes calculated as the
+difference between the average predicted response for a given set of
+fixed-effect values (in this case x1 variable that may influence
+detectability) and the response (presence/absence or abundance)
+predicted for particular year. These conditional modes were then
+extracted for each part of the hurdle and were then included as the
+response variable in a series of general linear models that modelled the
+effect of x2 variable on y.
+
+    \subsubsection{Load libraries}\label{load-libraries}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{k+kn}{library}\PY{p}{(}lme4\PY{p}{)}
+         \PY{k+kn}{library}\PY{p}{(}effects\PY{p}{)}
+         \PY{k+kn}{library}\PY{p}{(}optimx\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} require(devtools)}
+         \PY{c+c1}{\PYZsh{} install\PYZus{}version(\PYZdq{}effects\PYZdq{}, version = \PYZdq{}4.0\PYZhy{}0\PYZdq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kp}{set.seed}\PY{p}{(}\PY{l+m}{4322}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Read in data}\label{read-in-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} dat \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}file \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{data.csv\PYZsq{}}\PY{p}{,} row.names\PY{o}{=}\PY{l+m}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    Variable y is a response variable, variables x1 and x2 are explanatory
+variables. Variable x1 is expected to influence detectibility of y,
+variable x2 is expected to relate to y.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{k+kp}{head}\PY{p}{(}dat\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llll}
+ y & x1 & x2 & year\\
+\hline
+	 0.0000000 &  30       & 10.40875  & 1971     \\
+	 0.1184611 &  30       & 10.40875  & 1971     \\
+	 0.0000000 &  90       & 10.40875  & 1971     \\
+	 0.0000000 & 210       & 10.40875  & 1971     \\
+	 0.0000000 & 300       & 10.40875  & 1971     \\
+	 0.0000000 & 150       & 10.40875  & 1971     \\
+\end{tabular}
+
+
+    
+    \subsubsection{Scale data}\label{scale-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} cols \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{x1\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{x2\PYZdq{}}\PY{p}{)}
+         dat\PY{p}{[}\PY{p}{,} \PY{k+kp}{paste0}\PY{p}{(}cols\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZus{}\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{sc\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{scale}\PY{p}{(}dat\PY{p}{[} \PY{p}{,}cols\PY{p}{]}\PY{p}{)}
+         \PY{k+kp}{summary}\PY{p}{(}dat\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+       y                  x1            x2              year     
+ Min.   :0.000000   Min.   :  5   Min.   : 9.207   Min.   :1971  
+ 1st Qu.:0.000000   1st Qu.: 30   1st Qu.:13.169   1st Qu.:1984  
+ Median :0.000000   Median : 60   Median :15.261   Median :1998  
+ Mean   :0.002485   Mean   :128   Mean   :14.621   Mean   :1996  
+ 3rd Qu.:0.000000   3rd Qu.:180   3rd Qu.:16.288   3rd Qu.:2009  
+ Max.   :0.133199   Max.   :960   Max.   :18.168   Max.   :2017  
+                    NA's   :363   NA's   :61                     
+     x1_sc             x2_sc        
+ Min.   :-0.8945   Min.   :-2.5651  
+ 1st Qu.:-0.7126   1st Qu.:-0.6882  
+ Median :-0.4944   Median : 0.3032  
+ Mean   : 0.0000   Mean   : 0.0000  
+ 3rd Qu.: 0.3786   3rd Qu.: 0.7894  
+ Max.   : 6.0531   Max.   : 1.6802  
+ NA's   :363       NA's   :61       
+    \end{verbatim}
+
+    
+    \subsubsection{Binomial model}\label{binomial-model}
+
+    We fit full model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kp}{summary}\PY{p}{(}glm\PY{p}{(}\PY{k+kp}{ifelse}\PY{p}{(}dat\PY{o}{\PYZdl{}}y\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{0}\PY{p}{)} \PY{o}{\PYZti{}}
+                    x1\PYZus{}sc \PY{o}{+}
+                    x2\PYZus{}sc \PY{o}{+}
+                    year\PY{p}{,}
+                    data \PY{o}{=} dat\PY{p}{,}
+                family \PY{o}{=} binomial\PY{p}{(}link \PY{o}{=} logit\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+glm(formula = ifelse(dat$y > 0, 1, 0) ~ x1_sc + x2_sc + year, 
+    family = binomial(link = logit), data = dat)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.3114  -0.2885  -0.2789  -0.2601   2.8235  
+
+Coefficients:
+             Estimate Std. Error z value Pr(>|z|)  
+(Intercept) -0.152262  12.235934  -0.012   0.9901  
+x1_sc       -0.174758   0.102027  -1.713   0.0867 .
+x2_sc       -0.052618   0.080658  -0.652   0.5142  
+year        -0.001567   0.006135  -0.255   0.7984  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1455.7  on 4609  degrees of freedom
+Residual deviance: 1450.7  on 4606  degrees of freedom
+  (365 observations deleted due to missingness)
+AIC: 1458.7
+
+Number of Fisher Scoring iterations: 6
+
+    \end{verbatim}
+
+    
+    We see that observer related variable (x1) is significant. We try to
+isolate its effect for each year. To do so we apply a mixed-effect
+modeling framework and fit a varying intercept model. This approach is
+useful when we are interested explicitly in variation among and by
+groups. Group level variables are specified using a special syntax:
+(1\textbar{}year) to fit a linear model with a varying-intercept group
+effect using the variable year.
+
+    We include 'year' as random effect with noise variables.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} m.bin.full.re \PY{o}{\PYZlt{}\PYZhy{}} glmer\PY{p}{(}\PY{k+kp}{ifelse}\PY{p}{(}dat\PY{o}{\PYZdl{}}y\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{0}\PY{p}{)} \PY{o}{\PYZti{}}
+                      x1\PYZus{}sc \PY{o}{+}
+                      \PY{p}{(}\PY{l+m}{1}\PY{o}{|}year\PY{p}{)} \PY{p}{,}
+                    data \PY{o}{=} dat\PY{p}{,}
+         \PY{c+c1}{\PYZsh{}            control = glmerControl(optimizer =\PYZsq{}optimx\PYZsq{}, optCtrl=list(method=\PYZsq{}nlminb\PYZsq{})),}
+                    family \PY{o}{=} binomial\PY{p}{(}link \PY{o}{=} logit\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{k+kp}{summary}\PY{p}{(}m.bin.full.re\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: ifelse(dat$y > 0, 1, 0) ~ x1_sc + (1 | year)
+   Data: dat
+
+     AIC      BIC   logLik deviance df.resid 
+  1457.4   1476.7   -725.7   1451.4     4609 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-0.2114 -0.2066 -0.2027 -0.1871  7.2335 
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ year   (Intercept) 0.002407 0.04907 
+Number of obs: 4612, groups:  year, 44
+
+Fixed effects:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -3.27872    0.08461 -38.751   <2e-16 ***
+x1_sc       -0.18641    0.09471  -1.968    0.049 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+      (Intr)
+x1_sc 0.147 
+    \end{verbatim}
+
+    
+    Random effects are conditional modes - the difference between the
+average predicted response for a given set of fixed-effect values
+(observer related variables) and the response predicted for particular
+year.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} ranef.bin.dat\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.data.frame}\PY{p}{(}ranef\PY{p}{(}m.bin.full.re\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{3}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}\PY{p}{]}
+         \PY{k+kp}{colnames}\PY{p}{(}ranef.bin.dat\PY{p}{)}\PY{p}{[}\PY{l+m}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{reyear\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{k+kp}{head}\PY{p}{(}ranef.bin.dat\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|ll}
+ grp & reyear\\
+\hline
+	 1971          &  0.0137390698\\
+	 1972          &  0.0035901339\\
+	 1973          & -0.0042083611\\
+	 1974          & -0.0048717533\\
+	 1975          &  0.0022349064\\
+	 1976          &  0.0009954729\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{} merge with dat by column year}
+         dat.bin.re\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{merge}\PY{p}{(}dat\PY{p}{,}ranef.bin.dat\PY{p}{,} by.x \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{year\PYZdq{}}\PY{p}{,} by.y \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{grp\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{k+kp}{head}\PY{p}{(}dat.bin.re\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllll}
+ year & y & x1 & x2 & x1\_sc & x2\_sc & reyear\\
+\hline
+	 1971       & 0.0000000  &  30        & 10.40875   & -0.7126393 & -1.995932  & 0.01373907\\
+	 1971       & 0.1184611  &  30        & 10.40875   & -0.7126393 & -1.995932  & 0.01373907\\
+	 1971       & 0.0000000  &  90        & 10.40875   & -0.2761402 & -1.995932  & 0.01373907\\
+	 1971       & 0.0000000  & 210        & 10.40875   &  0.5968579 & -1.995932  & 0.01373907\\
+	 1971       & 0.0000000  & 300        & 10.40875   &  1.2516065 & -1.995932  & 0.01373907\\
+	 1971       & 0.0000000  & 150        & 10.40875   &  0.1603588 & -1.995932  & 0.01373907\\
+\end{tabular}
+
+
+    
+    Fit variable x2 against ranef.year.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} m.bin.full \PY{o}{\PYZlt{}\PYZhy{}} glm\PY{p}{(}reyear \PY{o}{\PYZti{}}
+                           x2\PYZus{}sc\PY{p}{,}
+                    data \PY{o}{=} dat.bin.re\PY{p}{,}
+                    family \PY{o}{=} gaussian\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{k+kp}{summary}\PY{p}{(}m.bin.full\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+glm(formula = reyear ~ x2_sc, family = gaussian, data = dat.bin.re)
+
+Deviance Residuals: 
+      Min         1Q     Median         3Q        Max  
+-0.008938  -0.003452  -0.001559   0.003270   0.013473  
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  3.589e-04  7.320e-05   4.903 9.73e-07 ***
+x2_sc       -1.235e-04  7.321e-05  -1.687   0.0916 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for gaussian family taken to be 2.633023e-05)
+
+    Null deviance: 0.12941  on 4913  degrees of freedom
+Residual deviance: 0.12933  on 4912  degrees of freedom
+  (61 observations deleted due to missingness)
+AIC: -37868
+
+Number of Fisher Scoring iterations: 2
+
+    \end{verbatim}
+
+    
+    The model predicted random effect for each year, assuming all other
+model variables (if there are any) remain constant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} plot\PY{p}{(}allEffects\PY{p}{(}m.bin.full.re\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Gamma model}\label{gamma-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{} drop rows with nas}
+         no.na.dat \PY{o}{\PYZlt{}\PYZhy{}} na.omit\PY{p}{(}dat\PY{p}{)}
+\end{Verbatim}
+
+
+    We fit Gamma model to the positive part of the model with log link using
+a similar set of predictors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{k+kp}{summary}\PY{p}{(}glm\PY{p}{(}y \PY{o}{\PYZti{}}
+                     year \PY{o}{+}
+                     x1\PYZus{}sc \PY{o}{+}
+                     x2\PYZus{}sc\PY{p}{,}
+                     data \PY{o}{=} \PY{k+kp}{subset}\PY{p}{(}no.na.dat\PY{p}{,} y\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)}\PY{p}{,}
+                     family \PY{o}{=} Gamma\PY{p}{(}link \PY{o}{=} \PY{k+kp}{log}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+glm(formula = y ~ year + x1_sc + x2_sc, family = Gamma(link = log), 
+    data = subset(no.na.dat, y > 0))
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-2.29973  -0.58475   0.05655   0.41737   0.89432  
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)
+(Intercept) -10.032208   6.618597  -1.516    0.131
+year          0.003676   0.003318   1.108    0.269
+x1_sc        -0.044201   0.060329  -0.733    0.465
+x2_sc         0.014744   0.047531   0.310    0.757
+
+(Dispersion parameter for Gamma family taken to be 0.3448597)
+
+    Null deviance: 104.02  on 169  degrees of freedom
+Residual deviance: 103.22  on 166  degrees of freedom
+AIC: -593.9
+
+Number of Fisher Scoring iterations: 5
+
+    \end{verbatim}
+
+    
+    We separate observer related effect for each year.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} m.gamma.full.re \PY{o}{\PYZlt{}\PYZhy{}} glmer\PY{p}{(}y \PY{o}{\PYZti{}}
+                      x1\PYZus{}sc \PY{o}{+}
+                      \PY{p}{(}\PY{l+m}{1}\PY{o}{|}year\PY{p}{)}\PY{p}{,}
+                     data \PY{o}{=} \PY{k+kp}{subset}\PY{p}{(}no.na.dat\PY{p}{,} y\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)}\PY{p}{,}
+                     control \PY{o}{=} glmerControl\PY{p}{(}optimizer \PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{optimx\PYZsq{}}\PY{p}{,} optCtrl\PY{o}{=}\PY{k+kt}{list}\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{nlminb\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    family \PY{o}{=} Gamma\PY{p}{(}link \PY{o}{=} \PY{k+kp}{log}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+singular fit
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k+kp}{summary}\PY{p}{(}m.gamma.full.re\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: Gamma  ( log )
+Formula: y ~ x1_sc + (1 | year)
+   Data: subset(no.na.dat, y > 0)
+Control: glmerControl(optimizer = "optimx", optCtrl = list(method = "nlminb"))
+
+     AIC      BIC   logLik deviance df.resid 
+  -593.0   -580.4    300.5   -601.0      166 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.6776 -0.8645  0.1301  0.8736  1.7613 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ year     (Intercept) 0.0000   0.0000  
+ Residual             0.3362   0.5798  
+Number of obs: 170, groups:  year, 39
+
+Fixed effects:
+            Estimate Std. Error t value Pr(>|z|)    
+(Intercept) -2.69798    0.05806 -46.467   <2e-16 ***
+x1_sc       -0.04962    0.06810  -0.729    0.466    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+      (Intr)
+x1_sc 0.175 
+convergence code: 0
+singular fit
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} plot\PY{p}{(}allEffects\PY{p}{(}m.gamma.full.re\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} extract random effect}
+         ranef.gamma.dat\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.data.frame}\PY{p}{(}ranef\PY{p}{(}m.gamma.full.re\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{3}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{k+kp}{colnames}\PY{p}{(}ranef.gamma.dat\PY{p}{)}\PY{p}{[}\PY{l+m}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{reyear\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} dat.gamma.re \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{merge}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}no.na.dat\PY{p}{,} y\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)}\PY{p}{,}ranef.gamma.dat\PY{p}{,} by.x \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{year\PYZdq{}}\PY{p}{,} by.y \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{grp\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{} fit the rest of the variables against ranef.year}
+         m.gamma.full \PY{o}{\PYZlt{}\PYZhy{}} glm\PY{p}{(}reyear \PY{o}{\PYZti{}}
+                     x2\PYZus{}sc\PY{p}{,}
+                    data \PY{o}{=} dat.gamma.re\PY{p}{,}
+                    family \PY{o}{=} gaussian\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{k+kp}{summary}\PY{p}{(}m.gamma.full\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+glm(formula = reyear ~ x2_sc, family = gaussian, data = dat.gamma.re)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+     0       0       0       0       0  
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)        0          0      NA       NA
+x2_sc              0          0      NA       NA
+
+(Dispersion parameter for gaussian family taken to be 0)
+
+    Null deviance: 0  on 169  degrees of freedom
+Residual deviance: 0  on 168  degrees of freedom
+AIC: -Inf
+
+Number of Fisher Scoring iterations: 1
+
+    \end{verbatim}
+
+    
+    \subsubsection{References}\label{references}
+
+    \begin{itemize}
+\tightlist
+\item
+  https://www.ssc.wisc.edu/sscc/pubs/MM/MM\_DiagInfer.html
+\item
+  http://rstudio-pubs-static.s3.amazonaws.com/5691\_192685385fc445c9b3fb1619960a20e2.html
+\item
+  http://pj.freefaculty.org/guides/stat/Regression-GLM/Gamma/GammaGLM-01.pdf
+\item
+  https://stats.stackexchange.com/questions/81457/what-is-the-difference-between-zero-inflated-and-hurdle-distributions-models
+\item
+  http://seananderson.ca/2014/05/18/gamma-hurdle.html
+\item
+  https://ms.mcmaster.ca/\textasciitilde{}bolker/R/misc/modelDiag.html
+\item
+  https://stats.idre.ucla.edu/r/dae/logit-regression/
+\item
+  https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faq-how-do-i-interpret-odds-ratios-in-logistic-regression/
+\item
+  http://environmentalcomputing.net/interpreting-coefficients-in-glms/
+\item
+  https://www.sciencedirect.com/science/article/pii/S0167947308000169
+\item
+  https://www.cambridge.org/core/services/aop-cambridge-core/content/view/S0021859611000608
+\item
+  https://link.springer.com/article/10.1007/s10742-017-0169-9
+\item
+  https://stats.stackexchange.com/questions/96972/how-to-interpret-parameters-in-glm-with-family-gamma/126225
+\item
+  https://stats.stackexchange.com/questions/161216/backtransform-coefficients-of-a-gamma-log-glmm
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
